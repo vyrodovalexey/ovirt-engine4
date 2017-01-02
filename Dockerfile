@@ -37,7 +37,7 @@ COPY rc.local /etc/rc.local
 #chmod rc.local
 RUN chmod 777 /etc/rc.local
 
-mount volumes
+#mount volumes
 VOLUME  ["/var/lib/ovirt-engine", "/var/log/httpd", "/var/log/ovirt-engine", "/var/log/ovirt-engine-dwh", "/var/log/ovirt-imageio-proxy", "/var/lib/pgsql" ]
 
 # Expose required container ports
