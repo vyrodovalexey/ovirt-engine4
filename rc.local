@@ -1,0 +1,7 @@
+sudo -u postgres  /usr/bin/pg_ctl -D /var/lib/pgsql/data -l /var/lib/pgsql/logfile  start
+sudo -u ovirt  /usr/bin/python /usr/share/ovirt-engine/services/ovirt-engine/ovirt-engine.py --redirect-output --systemd=notify start & 
+sudo -u ovirt /usr/share/ovirt-engine/services/ovirt-websocket-proxy/ovirt-websocket-proxy.py start & 
+sudo -u ovirt /usr/share/ovirt-engine/services/ovirt-fence-kdump-listener/ovirt-fence-kdump-listener.py start & 
+sudo -u ovirt-vmconsole /usr/libexec/ovirt-vmconsole-proxy-sshd -f /usr/share/ovirt-vmconsole/ovirt-vmconsole-proxy/ovirt-vmconsole-proxy-sshd/sshd_config -D & 
+/usr/bin/ovirt-imageio-proxy & 
+/usr/sbin/httpd -DFOREGROUND & 
