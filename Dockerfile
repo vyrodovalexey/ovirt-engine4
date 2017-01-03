@@ -1,4 +1,5 @@
 FROM centos:7
+ENV container=docker
 
 #update
 RUN yum update -y
@@ -8,8 +9,7 @@ RUN rpm -ivh http://mirror.yandex.ru/epel/7/x86_64/e/epel-release-7-8.noarch.rpm
 
 
 #install packages
-RUN yum install htop mc nload sysstat httpd wget net-tools expect postgresql sudo ovirt-engine -y; yum clean all
-
+RUN yum install  httpd  postgresql postgresql-server sudo ovirt-engine -y; yum clean all
 
 #install db
 RUN sudo -u postgres /usr/bin/initdb /var/lib/pgsql/data/
@@ -31,16 +31,20 @@ RUN sudo -u postgres  /usr/bin/pg_ctl -D /var/lib/pgsql/data -l /var/lib/pgsql/l
     && sudo -u postgres psql -c "create database engine owner engine template template0 encoding 'UTF8' lc_collate 'en_US.UTF-8' lc_ctype 'en_US.UTF-8'" \
     && engine-setup --config-append=/tmp/answers
 
-#startup for ovirt engine services and httpd
-COPY rc.local /etc/rc.local 
-
-#chmod rc.local
-RUN chmod 777 /etc/rc.local
 
 #mount volumes
 VOLUME  ["/var/lib/ovirt-engine", "/var/log/httpd", "/var/log/ovirt-engine", "/var/log/ovirt-engine-dwh", "/var/log/ovirt-imageio-proxy", "/var/lib/pgsql" ]
 
+
+#startup for ovirt engine services and httpd
+COPY rc.start /usr/local/bin/rc.start 
+
+#chmod rc.start
+RUN chmod 777 /usr/local/bin/rc.start
+
 # Expose required container ports
-EXPOSE 80 443 2222 6100 54323 7410/udp
+EXPOSE 80 443 6100 54323 
 
-
+# Start services
+#ENTRYPOINT /etc/rc.d/rc.start
+CMD ["rc.start"]
