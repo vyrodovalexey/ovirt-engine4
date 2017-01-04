@@ -46,5 +46,4 @@ RUN chmod 777 /usr/local/bin/rc.start
 EXPOSE 80 443 6100 54323 
 
 # Start services
-#ENTRYPOINT /etc/rc.d/rc.start
 CMD ["rc.start"]
