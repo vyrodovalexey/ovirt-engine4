@@ -27,6 +27,7 @@ login: admin
 password: test
 Enjoy!
 
-About author
 
-Profile of the author
+About author
+https://www.linkedin.com/pub/alexey-vyrodov/59/976/16b
+
