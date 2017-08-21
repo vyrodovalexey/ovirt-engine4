@@ -5,7 +5,8 @@ ENV container=docker
 RUN yum update -y
 
 #install repos
-RUN rpm -ivh http://mirror.yandex.ru/epel/7/x86_64/e/epel-release-7-8.noarch.rpm http://resources.ovirt.org/pub/yum-repo/ovirt-release41.rpm
+RUN rpm -ivh http://mirror.yandex.ru/epel/7/x86_64/e/epel-release-7-10.noarch.rpm http://resources.ovirt.org/pub/yum-repo/ovirt-release41.rpm 
+
 
 #install packages
 RUN yum install  httpd  postgresql postgresql-server sudo ovirt-engine -y; yum clean all
